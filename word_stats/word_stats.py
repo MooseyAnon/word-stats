@@ -6,7 +6,7 @@ do that do similar tasks to these functions (e.g. collections) and external libr
 
 Both are highly recommended, these are just to illustrate potenital implementations if you had to roll out your own solution.
 
-All functions expect prior tokenisation. For some pre-built functions see 'https://github.com/MooseyAnon/word-tokenisation'
+All functions expect prior tokenisation. For more thorough tokenisation see 'https://github.com/MooseyAnon/word-tokenisation'
 """
 
 
@@ -26,7 +26,6 @@ logger = logging.getLogger()
 # logger.info('test message!')
 
 
-# for not this will act as stand alone, however could make use of file_to_word_split
 def word_freq(afile):
 	"""takes a document and returns a frequency distribution (dict) for each word"""
 
@@ -50,7 +49,7 @@ def word_freq(afile):
 def freq_of_one_word(alist, word):
 	"""expects a list and a word. returns the word and the number of occurences in the list"""
 
-	# can easily be conerted to a doc that initially gets tokenised
+	# can easily be converted to a doc that initially gets tokenised
 	wrd_count=0
 	for index, item in enumerate(alist):
 		if item == word:
