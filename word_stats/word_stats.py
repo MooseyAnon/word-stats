@@ -121,6 +121,17 @@ def stop_word_calculator(afile):
 	return len(f_sw_free)/ len(f)
 
 
+def context_gram(astr):
+	"""returns w-1, w, w+1 as a tuple. Useful for context based POS tagging"""
+
+	f = open(astr).read().lower()
+	f1 = re.split('\s+', f)
+	new_list = []
+	for word in range(0,len(f1)-3):
+		new_list.append((f1[word-1], f1[word], f1[word+1]))
+	new_list.append((f[-3], f1[-2], f1[-1])) # get the last three words seperatly rather than check during every loop
+	return new_list
+
 
 
 
