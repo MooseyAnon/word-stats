@@ -1,4 +1,4 @@
-import re, logging, csv
+import re, logging, csv, os, sys 
 import matplotlib.pyplot as plt
 import cPickle as pickle
 
@@ -375,34 +375,21 @@ class WordGraph(WordStats):
 
 
 
-class PickleDoc:
-	# def __init__(self):
-		
+y = []
+# t.pickle(y, '12345.pkl')
 
-	def pickle(self, obj, writefile=None):
+d = []
 
-		if writefile:
-			with open(writefile, 'w') as ad:
-				pckled = pickle.dump(obj, ad)
-				logger.debug('pickled object at {0}'.format(writefile))
-				# return pckled
-		else:
-			with open('default.plk', 'w') as df:
-				pckled = pickle.dump(obj, df)
-				logger.debug('pickled object at default file')
-				# return pckled
+# print t.extend_pickled(y, '12345.pkl')
 
-	def unpickle(self, readfile):
-
-		try:
-			with open(readfile, 'r') as rf:
-				p = pickle.load(rf)
-				logger.debug('unpickled {0}'.format(readfile))
-				return p
-		except IOError:
-			logger.debug('issue unpickling {0}'.format(readfile))
+# print t.unpickle('12345.pkl')
 
 
+t = CSVSaver()
+
+d = {'k-yaaa':'lovvve','k-hello2':'version2' }
+
+t.csv_write(d, 'test.csv')
 
 
 
@@ -449,6 +436,12 @@ class BuildModel(WordStats):
 
 
 
+# print 
+
+# x = os.listdir('/Users/ahmedmahdi/Documents/testcrawl/crawl/brown')
+
+
+# print x
 
 
 
@@ -456,7 +449,22 @@ class BuildModel(WordStats):
 
 
 
+d = {1:2, 2:3, 4:1, 5:1, 6:4, 8:3, 9:4}
 
+# def reverse_dict(di):
+# 	d1={}
+
+# 	for k, v in di.items():
+# 		if v not in d1:
+# 			d1[v] = []
+# 			d1[v].append(k)
+# 		else:
+# 			d1[v].append(k)
+# 	return d1
+
+# print d
+# print 
+# print reverse_dict(d)
 
 
 
