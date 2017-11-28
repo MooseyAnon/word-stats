@@ -373,26 +373,6 @@ class WordGraph(WordStats):
 		plt.show()
 
 
-
-
-y = []
-# t.pickle(y, '12345.pkl')
-
-d = []
-
-# print t.extend_pickled(y, '12345.pkl')
-
-# print t.unpickle('12345.pkl')
-
-
-t = CSVSaver()
-
-d = {'k-yaaa':'lovvve','k-hello2':'version2' }
-
-t.csv_write(d, 'test.csv')
-
-
-
 class BuildModel(WordStats):
 	def __init__(self):
 		WordStats.__init__(self)
