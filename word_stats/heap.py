@@ -135,40 +135,6 @@ class MaxHeap:
 
 
 
-# l = [1,2,3,4,5,6,7,8]
-# l1 = l[3]
-# print l1, l1/3
-
-# print l[(l.index(4)/2)+1], l[4/2+1]
-
-
-# l[0] = l[-1]
-
-# print l[0] == l[l.index(1)]
-
-
-t = MaxHeap()
-
-l = [1, 3, 4, 5,7,8, 12, 15, 16, 1, 3, 22]
-
-t.build_heap(l)
-
-# print t.get_parent_index(1)
-
-# print t.has_parent(0)
-
-# print t.get_parent(0)
-# print t.get_left_child_index(2)
-# print t.has_left_child(4)
-# print t.get_left_child(2), 'tut'
-# print t.get_right_child(1), 'tut2'
-
-# print t.has_children(1)
-
-# print t.max_child(4), '----we"re testing this'
-
-print t.get_heap()
-
 
 
 
