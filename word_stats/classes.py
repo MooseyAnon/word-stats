@@ -418,7 +418,7 @@ class BuildModel(WordStats):
 
 # print 
 
-# x = os.listdir('/Users/ahmedmahdi/Documents/testcrawl/crawl/brown')
+
 
 
 # print x

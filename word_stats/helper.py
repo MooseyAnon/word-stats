@@ -4,7 +4,6 @@ from classes import *
 """Unfinished helper classes for wrtiting, reading and extending csv and pickled files"""
 
 class PickleDoc:
-	# def __init__(self):
 		
 
 	def pickle(self, obj, writefile=None):
@@ -34,59 +33,69 @@ class PickleDoc:
 
 
 	def _extend_pickled_list(self, obj, extendfile):
+		"""extends a pickled list object from a given file"""
 
-		if os.path.exists(extendfile):
-			with open(extendfile, 'r') as ef:
-				p1 = pickle.load(ef)
-				logger.debug('1. unpickled {0}'.format(ef))
-				p2 = p1 + obj
-				logger.debug('1.5 appended')
-				# return p1, type(p2)
-				logger.debug('1.75 appended {0}'.format(type(p2)))
+		with open(extendfile, 'r') as ef:
+			p1 = pickle.load(ef)
+			logger.debug('1. unpickled {0}'.format(ef))
+			p2 = p1 + obj
+			logger.debug('1.75 appended {0}'.format(type(p2)))
 
 
-			with open(extendfile, 'w') as ew:
-				logger.debug('2. about to pickle object at {0}'.format(ew))
-				pickle.dump(p2, ew)
-				logger.debug('3. pickled object at {0}'.format(ew))
-				ew.close()
-				logger.debug('3.5 closed object at ')
+		with open(extendfile, 'w') as ew:
+			logger.debug('2. about to pickle object at {0}'.format(ew))
+			pickle.dump(p2, ew)
+			logger.debug('3. pickled object at {0}'.format(ew))
+			ew.close()
+			logger.debug('3.5 closed object at ')
 
-			with open(extendfile, 'r') as e:
-				logger.debug('4. reading object {0}'.format(e))
-				r = pickle.load(e)
-				logger.debug('5. read object {0}'.format(e))
+		with open(extendfile, 'r') as e:
+			logger.debug('4. reading object {0}'.format(e))
+			r = pickle.load(e)
+			logger.debug('5. read object {0}'.format(e))
 
-			return r
+		return r
 
-		else:
-			return 'file does not exist'
 
 				
-	def extend_pickled_dict(self, obj, extendfile):
+	def _extend_pickled_dict(self, obj, extendfile):
+		"""extends a pickled dict object from a given file"""
+
+		with open(extendfile, 'r') as efr:
+			p1 = pickle.load(efr)
+
+			for k, v in obj.items():
+				if k not in p1.keys():
+					p1[k] = v
+				elif type(p1[k]) == list:
+					p1[k] = p1[k].append(v)
+				else:
+					pass
+
+		with open(extendfile, 'w') as efw:
+			pickle.dump(p1, efw)
+
+		with open(extendfile, 'r') as er:
+			r = pickle.load(er)
+
+		return r
+
+
+
+	def extend_file(self, obj, extendfile):
+
 
 		if os.path.exists(extendfile):
-			with open(extendfile, 'r') as efr:
-				p1 = pickle.load(efr)
+			if type(obj) == dict:
+				ex_file = self._extend_pickled_dict(obj, extendfile)
+			elif type(obj) == list:
+				ex_file = self._extend_pickled_list(obj, extendfile)
+			else:
+				logger.debug('Object type is not extensable')
 
-				for k, v in obj.items():
-					if k not in p1.keys():
-						p1[k] = v
-					elif type(p1[k]) == list:
-						p1[k] = p1[k].append(v)
-					else:
-						pass
+		else: 
+			logger.debug('file does not exists')
 
-			with open(extendfile, 'w') as efw:
-				pickle.dump(p1, efw)
-
-			with open(extendfile, 'r') as er:
-				r = pickle.load(er)
-
-			return r
-
-		else:
-			return 'file does not exist'
 
 
 
@@ -99,66 +108,28 @@ class CSVSaver:
 		if writefile:
 			with open(writefile, 'wb') as wf:
 				w = csv.writer(wf)
-				w.writerow(adict.items())
-				# w.writerow(adict.values())
+				for key, value in adict.items():
+						w.writerow([key, value])
+			
 		else:
 			with open('default.csv', 'wb') as wf:
-				w = csv.writer(sys.stderr)
-    			w.writerow(adict.keys())
-    			w.writerow(adict.values())
+				w = csv.writer(wf)
+    			for key, value in adict.items():
+						w.writerow([key, value])
+
+
+	def csv_read(self, readfile):
+
+		try:
+			with open(readfile, 'rb') as rf:
+				reader = csv.reader(rf)
+				d = dict(reader)
+				return d
+		except IOError:
+			logger.debug('Had problems reading {0}'.format(readfile))
 
 
 
-
-# t = PickleDoc()
-
-# y = ['k-yaaa','lovvve','k-hello2','version2']
-# t.pickle(y, '12345.pkl')
-
-# d = ['next','add','is','here']
-
-# print t.extend_pickled(d, '12345.pkl')
-
-# print t.unpickle('12345.pkl')
-
-
-# t = CSVSaver()
-
-# d = {'k-yaaa':'lovvve','k-hello2':'version2' }
-
-# t.csv_write(d, 'test.csv')
-
-
-
-
-# print y + d
-
-d = {1:2, 2:3, 3:4}
-
-p = {5:6, 6:7, 8:9, 2:4, 4:[1,2,3]}
-
-# for k in d.keys():
-for i, j in p.items():
-	if i not in d.keys():
-		d[i] = j
-	else:
-		pass
-
-print d
-
-# p[4] = 3
-# p4 = p[4].append(4)
-# print type(p[4]) == list
-
-# print p[4]
-
-# t = PickleDoc()
-
-# t.pickle(d, 'testing.pkl')
-
-# print t.extend_pickled_dict(p, 'testing.pkl')
-
-# output: {1: 2, 2: 3, 3: 4, 4: [1, 2, 3], 5: 6, 6: 7, 8: 9}
 
 
 
